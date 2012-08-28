@@ -14,33 +14,35 @@
 
 GridTableはViewControllerとして定義されています。
 
-```
-	GridTableVC *vc = [[GridTableVC alloc] init];
-	self.window.rootViewController = vc;
-	[vc release];
+```Objective-C
+GridTableVC *vc = [[GridTableVC alloc] init];
+self.window.rootViewController = vc;
+[vc release];
 ```
 
 任意のモデルオブジェクトの配列をデータとして追加できます。
 
-```
-	NSMutableArray *rows = [[NSMutableArray alloc] init];
-	[rows addObject:[[[User alloc] initWithName:@"山田太郎" mail:@"yamada1@example.com" phone:@"09011110001" memo:@"テスト"] autorelease]];
-	[rows addObject:[[[User alloc] initWithName:@"山田二郎" mail:@"yamada2@example.com" phone:@"09011110002" memo:@"テスト"] autorelease]];
-	[rows addObject:[[[User alloc] initWithName:@"山田三郎" mail:@"yamada3@example.com" phone:@"09011110003" memo:@"テスト"] autorelease]];
-	vc.rows = rows;
-	[rows release];
+```Objective-C
+NSMutableArray *rows = [[NSMutableArray alloc] init];
+[rows addObject:[[[User alloc] initWithName:@"山田太郎" mail:@"yamada1@example.com" phone:@"09011110001" memo:@"テスト"] autorelease]];
+[rows addObject:[[[User alloc] initWithName:@"山田二郎" mail:@"yamada2@example.com" phone:@"09011110002" memo:@"テスト"] autorelease]];
+[rows addObject:[[[User alloc] initWithName:@"山田三郎" mail:@"yamada3@example.com" phone:@"09011110003" memo:@"テスト"] autorelease]];
+vc.rows = rows;
+[rows release];
 ```
 
 列情報はGridColumnオブジェクトで定義します。
 
+```Objective-C
+NSMutableArray *cols = [[NSMutableArray alloc] init];
+[cols addObject:[[[GridColumn alloc] initWithPropertyName:@"name" headerText:@"名前" width:150] autorelease]];
+[cols addObject:[[[GridColumn alloc] initWithPropertyName:@"mail" headerText:@"メールアドレス" width:300] autorelease]];
+[cols addObject:[[[GridColumn alloc] initWithPropertyName:@"phone" headerText:@"電話番号" width:150] autorelease]];
+vc.cols = cols;
+[cols release];
 ```
-	NSMutableArray *cols = [[NSMutableArray alloc] init];
-	[cols addObject:[[[GridColumn alloc] initWithPropertyName:@"name" headerText:@"名前" width:150] autorelease]];
-	[cols addObject:[[[GridColumn alloc] initWithPropertyName:@"mail" headerText:@"メールアドレス" width:300] autorelease]];
-	[cols addObject:[[[GridColumn alloc] initWithPropertyName:@"phone" headerText:@"電話番号" width:150] autorelease]];
-	vc.cols = cols;
-	[cols release];
-```
+
+こんな感じで表示されます。
 
 ![Screenshot](https://raw.github.com/yuch/GridTable/master/screenshot/sample.png)
 
