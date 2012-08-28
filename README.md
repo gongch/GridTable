@@ -42,5 +42,5 @@ GridTableはViewControllerとして定義されています。
 	[cols release];
 ```
 
-![Screenshot](https://raw.github.com/yuch/GridTable/screenshot/sample.png)
+![Screenshot](https://raw.github.com/yuch/GridTable/master/screenshot/sample.png)
 
