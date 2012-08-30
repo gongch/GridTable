@@ -112,22 +112,41 @@
 	for (UIView *view in cell.contentView.subviews) {
 		[view removeFromSuperview];
 	}
+	if (self.rowRenderer != nil) {
+		self.rowRenderer(cell, indexPath.row);
+	}
 	
 	NSObject *row = [self.rows objectAtIndex:indexPath.row];
 	for (int i = 0; i < [self.cols count]; i++) {
 		GridColumn *col = [self.cols objectAtIndex:i];
 
-		NSString *val = [row performSelector:NSSelectorFromString(col.propertyName)];
+		NSObject *val = [row performSelector:NSSelectorFromString(col.propertyName)];
 		
 		float left = [self leftPositionOfColomnNumber:i];
 		UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(left+5,5,0,0)];
 		label.backgroundColor = [UIColor clearColor];
-		label.text = val;
 		label.font = [UIFont systemFontOfSize:14];
 		label.textColor = [UIColor darkGrayColor];
+		
+		if (col.textRenderer != nil) {
+			label.text = col.textRenderer(val);
+		} else {
+			label.text = [NSString stringWithFormat:@"%@", val];
+		}
+		
+		if (col.labelRenderer != nil) {
+			col.labelRenderer(label, val);
+		}
 		[label sizeToFit];
 		[cell.contentView addSubview:label];
 		[label release];
+		
+		// セパレータ
+		float right = [self leftPositionOfColomnNumber:i+1];
+		UIView *separator = [[UIView alloc] initWithFrame:CGRectMake(right,0,1,cell.contentView.bounds.size.height)];
+		separator.backgroundColor = [UIColor lightGrayColor];
+		[cell.contentView addSubview:separator];
+		[separator release];
 	}
 	return cell;
 }

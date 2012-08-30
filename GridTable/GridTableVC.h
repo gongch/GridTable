@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^RowRenderer)(UITableViewCell *cell, int rowIndex);
+
 @interface GridTableVC : UIViewController
+
 @property(nonatomic, retain) NSMutableArray *rows;
 @property(nonatomic, retain) NSMutableArray *cols;
+@property(nonatomic, retain) RowRenderer rowRenderer;
+
 @end
